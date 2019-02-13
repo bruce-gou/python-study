@@ -1,0 +1,5 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "/opt/local/bin/python2.7"
+}

@@ -1,0 +1,100 @@
+第四章 字典
+
+	创建使用字典
+	  1. book = { 'Alice':'2341', 'Beth': '9102' }
+	  
+	  2.dict 函数 
+	    items = [('name','Gumby'),('age', 42)]
+	    d = dict(items) //{'age': 42, 'name': 'Gumby'}
+	    d['age'] // 42
+
+	    d = dict(name='Gumby',age=42) //还可以这样创建
+	
+	基本字典操作
+	  len(d) 返回d 中项（键-值对）的数量
+	  d[k] 返回关联到键k上的值
+	  d[k] = v 将值v关联到键k上
+	  del d[k] 删除键k的项
+	  k in d 检查d中是否有含有键为k 的项
+	
+	  键类型： 字典的键不一定是整型类型，键可以是任意的不可变类型，比如浮点型、字符串或者元组
+	  自动添加： 即使键起初在字典中并不存在，也可以为它赋值，这样字典就会建立新的项。
+	  成员资格： 表达式 k in d（d为字典） 查找的是键，不是值。表达式 v in l(l为列表) 则用来查找值，而不是索引。
+
+	
+	字典方法
+	  clear() : clear方法清除字典中所有的项
+
+	  copy() : copy 方法返回一个具有相同键-值的新字典
+
+
+	  fromkeys() : fromkeys方法使用给定的键建立新的字典，每个键都对应一个默认的值 None.
+		dict.fromkeys(['name','age']) // {'age': None, 'name': None}
+
+	  get() : get 方法是个更宽松的访问字典的方法。
+		d.get('name') //'Gumby'
+
+	  has_key(): has_key 方法可以检查字典中是否含有特定的键， 相当与 k in d
+		d.has_key('name')
+		
+	  items() :items 方法将字典索引的项以列表方式返回，列表中的每一项都表示为（键，值）对的形式
+		d.items() //[('age', 42), ('name', 'Gumby')]
+
+	  iteritems() : iteritems方法的作用大致和items 相同，但是会返回一个迭代器对象，而不是列表：
+		it = d.iteritems(); //<dictionary-itemiterator object at 0x10d9c8e10>
+		list(it) // [('age', 42), ('name', 'Gumby')]
+	  	在很多情况下，iteritems 会更高效
+
+	  keys() : keys 方法将字典中键以列表的形式返回
+		d.keys() //['age', 'name']
+
+	  iterkeys(): iterkeys 方法返回针对键的迭代器
+		it = d.iterkeys() //<dictionary-keyiterator object at 0x10d9c8ec0>
+		list(it) //['age', 'name']
+	
+	  pop(k): pop方法将这个键-值对从字典移除，并返回该键的值
+		d.pop('name') //'Gumby'
+
+
+	  popitem() : popitem 方法类似于 list.pop，后者会移出列表的最后一个元素，但不同的是，popitem移除随机的项，因为字典没有最后的项，或者其他顺序概念。若想一个接一个的移除并处理，这个方法就非常有效。
+		d.popitem() //('age', 42)
+
+	  setdefault() : setdefault方法在某种程度上类似于get 方法，能够获取与给定键相关联的值，除此之外，setdefault 还能在字典中不含有给的键的情况下设定相应的建值。
+		d = {}
+		d.setdefault('name','zs') //'zs'
+		d //{'name': 'zs'}
+		
+		d.setdefault('name','ls') //'zs'
+		d //{'name': 'zs'}
+		可以看到当键值不存在的时候，setdefault返回默认值，并且相应更新字典，如果存在，那么就返回与之对应的值，但不改字典，默认可选
+
+	  update() : update方法 可以利用一个字典更新另外一个字典
+		d = {'name':'zs', 'age': 42};
+		x = {'name':'ls'}
+		d.update(x) 
+		d //{'age': 42, 'name': 'ls'}
+
+
+	  values() : values 方法 以列表的形式返回字典中的值（itervalues 返回值的迭代器）。与返回键的列表不同的是，返回值的列表中可以包含重复的元素：
+		d.values() //[42, 'ls']
+
+	  itervalues() : 返回值的迭代器
+		it = d. itervalues()
+		list(it)  //[42, 'ls']
+	  
+
+
+
+
+
+
+
+
+
+
+	  
+
+
+
+
+

@@ -1,0 +1,159 @@
+第五章 条件循环 和 其他语句
+	
+	序列解包
+		x,y,z = 1,2,3
+		x,y = y,z //它们可以直接交换多个值
+
+		values = 1,2,3 //(1,2,3)
+		x,y,z = values // x=1,y=2,z=3
+
+		d = {'name':'zs', 'age': 43}
+		key, value = d.popitem() // key = 'age', value= 43
+
+	链式赋值
+		链式赋值是将同一个值赋值给多个变量的捷径。
+		x=y=z=1
+		
+	增量赋值
+		在表达式中将运算符放在 赋值运算符 '=' 的左边，这种写法叫做增量运算符。
+		x+=1
+		x-=1
+		x*=2
+		x/=2
+		
+	布尔变量
+		真值也叫布尔值。
+		下面的值在作为布尔表达式的时候，会被解释器看着假（False）:
+		False  None  0  "" () [] {}
+		也就是标准值 False 和 None 所有类型的数字 0 （包括浮点型、长整型和其他类型）、
+		空序列（空字符串、元组和列表）以及空的字典都为假。其他一切都被解释为真，包括特殊值True。
+		尽管 [] 和 "" 都是假值(bool([]) == bool("") == False)，但是它们本身并不相等（[] != ""）
+
+	条件执行语句 和 if 语句
+		if 语句它可以实现条件执行，即如果条件（在if和冒号之间的表达式)判断为真，那么后面的语句块就会执行。
+		如果条件为假，语句块不会被执行。
+		if True :print 'hello'
+
+	else子句
+		如果if 的条件为假的时候，也可以使用else子句增加一种选择，之所以叫子句是因为它不是独立的语句，而只能作为if语句的一部分。
+		if True :
+		    print 'hello'
+		else :
+		    print 'world'
+	
+
+	比较运算符
+		x==y	x等于y
+		x<y	x小于y
+		x>y	x大于y
+		x>=y	x大于等于y
+		x<=y	x小于等于y
+		x!=y	x不等于y
+		x is y	x和y是同一对象
+		x is not y	x和y是不同对象
+		x in y		x是y容器的成员
+		x not in y	x不是y容器的成员
+		字符串可以按照字母顺序排列进行比较。
+	
+	布尔运算符
+		or	或者
+		and	并且
+		not	非      not False 等于 True
+
+	断言
+		因为与其让程序在晚些时候崩溃，不如在错误条件出来的时候直接让它崩溃。一般来说你可以要求某些条件必须为真（例如：
+		在检查函数参数的属性时，或者作为初期测试和调试过程中的辅助条件）。语句中使用的关键字是 assert.
+		例如：
+		age = -1
+		assert 0 < age,'age有问题' // error AssertionError: age有问题
+
+	循环
+		while 循环
+		  x = 1
+		  while x<=100:
+		      print x
+		      x+=1
+		
+		for循环
+		  l = ['zs','ls']
+		  for x in l:
+		      print x
+
+		range(x,y,z): 生成一个范围的数字序列，
+		  例如 1- 10 ：range(1,11) 和 range(11) 效果一样
+		      range第三个参数  步长
+		      range(1,10,2) //[1, 3, 5, 7, 9]
+		
+		zip(): zip 方法可以把多个列表压缩在一起，然后返回一个元组的列表
+		       zip([0,1],['zs','ls']) // [(0, 'zs'), (1, 'ls')]
+	
+	按索引迭代
+		enumerate():
+			s = ['zs','ls']
+			list(enumerate(s)) //[(0, 'zs'), (1, 'ls')]
+			list(enumerate(s,start=2)) //下标从 2 开始 [(2, 'zs'), (3, 'ls')]
+			list(enumerate(s,1)) //下标从 1 开始 [(1, 'zs'), (2, 'ls')]
+	
+	翻转和排序迭代
+		sorted(): sorted('hello') //['e', 'h', 'l', 'l', 'o']
+		reversed(): list( reversed('hello') ) // ['o', 'l', 'l', 'e', 'h']
+
+
+	跳出循环
+		break : 结束跳出循环
+		continue: 结束本次循环，进入下一次循环
+
+	列表推导式
+		列表推导式是利用其他列表创建新列表的一样方法，它的工作方式类似于for循环。
+		[x*x for x in range(10)] // [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+		[(x,y)for x in range(2) for y in range(3)] // [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2)]
+
+	pass语句
+		有时候程序什么事情都不用做，这种情况不多，但是一旦出现，应该让pass语句出马。
+		if True :
+		    pass
+ 		else:
+		    //你的操作
+
+	exec: 执行字符串
+		exec 'print "hello,world"' // hello,world
+
+	eval: 字符串求值
+		eval('2+4') // 6
+
+		s = {'x':1,'y':2}
+		eval('x*y',s) // 2
+		
+		eval(raw_input('请输入算数表达式：'))
+		请输入算数表达式：1+2*3  //7
+
+	
+	新的函数：
+		chr(n)		当传入序号n 时，返回n 所代表的包含一个字符的字符串 (0<=n<256)
+		eval()		将字符串用作表达式计算，并且返回值
+		ord()		返回单字符字符串的 int 值
+		range()		创建整数列表
+		xrange()	创造xrange对象用于迭代
+		zip()		创造用于并行迭代的新序列
+		enumerate(seq)	产生用于迭代的（索引、值）对	
+			
+		
+		
+		
+		
+		
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+

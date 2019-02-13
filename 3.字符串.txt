@@ -1,0 +1,146 @@
+第三章：字符串
+  基本操作字符串：
+    所以标准的序列操作（索引、分片、乘法、判断成员资格、求长度、取最大值、取最小值）对字符串同样适用，但是字符串都是不可变的，因此按项、分片赋值都是不合法的
+	s = 'http://baidu.com'
+	s[3] = '1' //error
+        s[0:1] = '100' //error
+  字符串格式化（简单版）：
+	转换说明符 % ：
+	s: 表示格式的是字符串，
+	  s = 'hello, %s'
+	  name = 'zhangsan'
+          print s % name // 结果 'hello, zhangsan'
+	  '%s %s %s' % (1,2,3)
+	  如果需要转换的元组作为转换表达式的一部分存在，那么必须用圆括号括起来
+          
+	
+        f：格式化实数、浮点数,同时提供所需精度，一个句点加上希望保留的小数位数。
+	  pi = 3.1415
+	  s = 'pi: %.3f'
+	  print s % pi  //结果为：pi: 3.142
+  
+  字符串格式化（完整版）:
+	转换符包括以下部分：
+	  (1) %字符  ：标记转换说明符的开始
+	  (2) 转换标志(可选)  ：- 表示左对齐；+ 表示转换值之前要加上正负号； “”（空白字符）表示正数之前保留空格；0 表示转换值若位数不够则用0填充。
+	  (3) 点(.) 后跟精度值(可选) : 转换后的字符串至少应该具有该值指定的宽度。如果是*，则宽度值会从元组中读出。
+	  (4) 转换类型：
+		d,i	带符号的十进制整数
+		o	不带符号的八进制
+		u	不带符号的十进制
+		x	不带符号的十六进制（小写）
+		X	不带符号的十六进制（大写）
+		e	科学计数法表示的浮点数（小写）
+		E 	科学计数法表示的浮点数（大写）
+		f,F	十进制浮点数
+		g	如果指数大于-4或者小于精度值则和 e 相同，其他情况与 f 相同
+		G	如果指数大于-4或者小于精度值则和 E 相同，其他情况与 F 相同
+		C	单字符（接受整数或者单字符字符串）
+		r	字符串（使用repr转换任意Python对象）
+		s	字符串（使用str转换任意Python对象）
+	简单转换：
+	  '%d' % 42 // '42'
+	  '%s' % 42L //'42'
+	  '%r' % 42L //'42L'
+	字段宽度和精度：
+	  pi = 3.141593
+	  '%10f' % pi //字段宽度10  --->  '  3.141593'
+	  '%10.2f' % pi //字段宽度10，精度2 --->  '      3.14'
+	  '%.2f' % pi //精度2。---> '3.14'
+	  '%.5s' % 'Guido van Rossum' // 'Guido'
+	  可以是用星号（*）作为字段宽度或者精度（或者两者都使用*）,此时数值会从元组参数中读出：
+	  '%.*s' % (5,'Guido van Rossum') // 'Guido'
+	  '%*.*s' % (10,5,'Guido van Rossum') // '     Guido'
+	符号、对齐和用0填充：
+	  在字段宽度和精度之前还可以放一个 '标志' 该标准可以是零 、加号、减号、空格。0 表示数字将会用0填充。
+	  '%010.2f' % pi   //'0000003.14'  表示 用0填充 宽度为10 精度为2
+	  '%+10.2f' % pi  //'     +3.14'
+	  '%-10.2f' % pi  //'3.14      '
+	  '% 10.2f' % pi  //'      3.14'
+	  //- 表示左对齐；+ 表示转换值之前要加上正负号； “”（空白字符）表示正数之前保留空格；0 表示转换值若位数不够则用0填充。
+	 
+  模版字符串：
+	string 模块提供另外一种格式化值的方法： 模版字符串，如下： substitute 这个模版方法会用传递进来的关键字foo替换字符串中$foo。
+	  import string //引入模块
+	  s = string.Template('$foo,张三')
+	  print s.substitute(foo='hello') // 'hello, 张三'
+	如果替换的是单词的一部分，需要用{} 括起来
+	  s = string.Template('${foo}llo,张三')
+	  print s.substitute(foo='he') // 'hello, 张三'
+	除了关键字参数之外，还可以用字典变量提供值/名称
+	  s = string.Template('$foo,张三')
+	  d = {}
+	  d['foo'] = 'hello'
+	  d['f'] = 'name'
+	  print s.substitute(d) //'hello, 张三'
+
+
+  字符串方法：
+	字符串常量：
+	  string.digits: 包含数字0～9的字符串。
+	  string.letters: 包含所有字幕（大小写）的字符串
+ 	  string.lowercase: 包含所有小写的字符串
+	  string.printable: 包含所有可打印字符的字符串
+	  string.punctuation: 包含所有标点的字符串。
+	  string.uppercase: 包含所有大写字符的字符串。
+
+	find() :find 方法可以在一个较长的字符串中查找子串。它返回子串所在位置的最左端索引，若果没有找到则返回-1.
+		find() 方法还接受起始点 和结束点参数
+		s = 'hello, zs !!!'
+		s.find('!!!',0, 10) // -1
+		s.find('!!!',0, 15) //10
+
+	join() : join 方法是非常重要的字符串方法，它是split方法的你方法，用来连接序列中的元素：
+		s = [1,2,3,4]
+		'-'.join(s) //error
+		s = ['1','2','3']
+		'-'.join('-') //'1-2-3'
+		需要被连接的元素必须是字符串
+	
+	split(): split 方法是join 方法的你方法，用来将字符串分割成序列。
+		'1-2-3-4'.split('-') // ['1', '2', '3', '4']
+
+	lower(): lower 方法返回字符串的小写字母版
+		s = 'HELLO'
+		s.lower() //'hello'
+
+	upper(): upper方法 把小写字母全部转成大写字母返回
+		'hello'.upper() //'HELLO'
+
+	strip(): strip方法返回两侧空格的字符串
+		 s = '   hello, world   '
+		 s.strip() //'hello, world'
+
+	title(): title 方法又称标题方法，把所有单词的首字母大写，其他字母小写
+		s = 'hello world'
+		s.title() //'Hello World'
+
+	replace(): replace 方法返回某字符串的所有匹配项均被替换之后得到字符串。
+		s = 'hello world'
+		print s.replace('world','张三') // 'hello 张三'
+
+	translate(): translate方法和 replace 方法一样，可以替换字符串中某些部分，但是和前者不同的是，translate 方法之处理单个字符。它 的优势在于可以同时进行多个替换，有时候逼replace 效率高的多。
+		在使用translate转换之前，需要先完成一张转换表。转换表中是以某些字符替换某字符的对应关系，因为这个表有多达256个字符串，可以是用 string 模块里面的 maketrans 函数就行。		
+		import string
+		table = string.maketrans('cs','kt')
+		'this is an incred test'.translate(table) // 'thit it an inkred tett'
+
+		translate 的第二个参数是可选的，这个参数是用来指定要删除的字符。例如：
+		'this is an incred test'.translate(table, ' ') //'thisisanincredtest'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
