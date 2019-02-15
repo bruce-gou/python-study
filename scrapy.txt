@@ -1,0 +1,19 @@
+爬虫
+	创建爬虫项目：scrapy startproject name 
+
+	生成爬虫: scrapy genspider name 域名
+		爬虫名 不能和项目名重复，在项目目录下 spiders 文件下打开命令行 执行命令，生成爬虫文件，后面的逻辑 都在该文件里面写
+		例如: scrapy genspider douban_spider movie.douban.com
+
+	启动爬虫：scrapy crawl 爬虫名
+
+	数据导出：scrapy crawl douban_spider -o test.json
+		scrapy crawl douban_spider -o test.csv
+
+
+注意事项：
+	中间件定义完成要在settings文件内启用，在 DOWNLOADER_MIDDLEWARES 中，并且要设置优先级，号越小，优先级越大
+	
+	爬虫文件名 和 爬虫名称不能相同， spiders 目录内不能存在相同爬虫名称的项目文件
+
+	ps:不要爬取隐私数据，不要给对方的系统带来不必要的麻烦
